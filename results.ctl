@@ -1,0 +1,30 @@
+(set! geometry-lattice (make lattice (size 1000 20 no-size)))
+(set! geometry (list
+;------make waveguide-----
+(make block (center -250 0 0)(size 500 0.5 2.5)
+(material (make dielectric (epsilon 12))))
+;-------make taper----(block + 2 triangles for inverse taper)
+(make block (center 60 0 0)(size 120 0.1 2.5)
+(material (make dielectric (epsilon 12))))
+(make block (center 60.0000 175.0000 2.5000)
+		(size 50.2494 250.0500 130.0961)
+		(e1 0.0000 50.0000 5.0000)
+		(e2 0.0000 250.0000 5.0000)
+		(e3 120.0000 50.0000 5.0000)
+		(material (make dielectric (epsilon 12))))
+		(make block (center 60.0000 175.0000 2.5000)
+		(size 50.2494 250.0500 130.0961)
+		(e1 0.0000 -50.0000 5.0000)
+		(e2 0.0000 -250.0000 5.0000)
+		(e3 120.0000 -50.0000 5.0000)
+		(material (make dielectric (epsilon 12))))))
+		(set! sources (list
+(make source
+(src (make continuous-src (frequency 0.64)))
+(component Ez)
+(center 130 0))))
+(set! pml-layers (list (make pml (thickness 1))))
+(set! resolution 20)
+(run-until 200
+(at-beginning output-epsilon)
+(at-end output-efield-z))
